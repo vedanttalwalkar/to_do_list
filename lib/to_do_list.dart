@@ -302,7 +302,7 @@ class _ToDoListState extends State<ToDoList> {
                                                               246,
                                                               239),
                                                       title: const Text(
-                                                        'Change completion time or Name ',
+                                                        'Change completion Name ',
                                                         style: TextStyle(
                                                             fontFamily: 'a',
                                                             color: Colors.black,
@@ -311,44 +311,72 @@ class _ToDoListState extends State<ToDoList> {
                                                                 FontWeight
                                                                     .w900),
                                                       ),
-                                                      content: Column(
-                                                        children: [
-                                                          const Text(
-                                                            'Name',
+                                                      content: SizedBox(
+                                                        height: 100,
+                                                        child: Column(
+                                                          children: [
+                                                            const Text(
+                                                              'Name',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'a',
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w900),
+                                                            ),
+                                                            TextFormField(
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  TaskInfo
+                                                                      .displayedTasks[
+                                                                          index]
+                                                                      .taskName = value;
+                                                                });
+                                                              },
+                                                              controller:
+                                                                  textEditingControllerForUpdating,
+                                                              decoration: InputDecoration(
+                                                                  hoverColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  filled: true,
+                                                                  fillColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  border:
+                                                                      textFieldKa,
+                                                                  focusedBorder:
+                                                                      textFieldKa,
+                                                                  enabledBorder:
+                                                                      textFieldKa),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  context),
+                                                          child: const Text(
+                                                            'Done',
                                                             style: TextStyle(
-                                                                fontFamily: 'a',
+                                                                fontFamily: 'b',
                                                                 color: Colors
                                                                     .black,
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w900),
+                                                                        .w600),
                                                           ),
-                                                          TextFormField(
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                TaskInfo
-                                                                    .displayedTasks[
-                                                                        index]
-                                                                    .taskName = value;
-                                                              });
-                                                            },
-                                                            controller:
-                                                                textEditingControllerForUpdating,
-                                                            decoration: InputDecoration(
-                                                                filled: true,
-                                                                fillColor:
-                                                                    Colors
-                                                                        .white,
-                                                                border:
-                                                                    textFieldKa,
-                                                                focusedBorder:
-                                                                    textFieldKa,
-                                                                enabledBorder:
-                                                                    textFieldKa),
-                                                          )
-                                                        ],
-                                                      ),
+                                                        )
+                                                      ],
                                                     );
                                                   });
                                             },
@@ -447,7 +475,7 @@ class _ToDoListState extends State<ToDoList> {
                                         fontWeight: FontWeight.w900),
                                   ),
                                   const SizedBox(
-                                    height: 16,
+                                    height: 12,
                                   ),
                                   const Text(
                                     'lorem ipsum',
@@ -456,6 +484,9 @@ class _ToDoListState extends State<ToDoList> {
                                         color: Colors.grey,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w900),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
                                   ),
                                 ],
                               ),
