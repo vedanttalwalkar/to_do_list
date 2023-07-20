@@ -14,7 +14,7 @@ class ToDoListMaterialAppTree extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => ToDoList(),
+      '/': (context) => const ToDoList(),
       },
     );
   }

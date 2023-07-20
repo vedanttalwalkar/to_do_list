@@ -17,10 +17,11 @@ class _ToDoListState extends State<ToDoList> {
   @override
   void initState() {
     super.initState();
-
+    textEditingControllerForUpdating.addListener(() => setState(() {}));
     textEditingController.addListener(() => setState(() {}));
   }
 
+  bool edit = false;
   OutlineInputBorder textFieldKa = const OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(30)),
     borderSide: BorderSide(
@@ -28,6 +29,8 @@ class _ToDoListState extends State<ToDoList> {
       width: 3,
     ),
   );
+  TextEditingController textEditingControllerForUpdating =
+      TextEditingController();
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -254,26 +257,104 @@ class _ToDoListState extends State<ToDoList> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TextButton(
-                                          style: TextButton.styleFrom(
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TextButton(
+                                              style: TextButton.styleFrom(
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(10),
+                                                  ),
                                                 ),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 247, 247, 239),
                                               ),
-                                              backgroundColor:
-                                                  const Color.fromARGB(
-                                                      255, 247, 247, 239)),
-                                          onPressed: () {},
-                                          child: const Text(
-                                            'Review',
-                                            style: TextStyle(
-                                                fontFamily: 'a',
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w900),
-                                          )),
+                                              onPressed: () {},
+                                              child: const Text(
+                                                'Review',
+                                                style: TextStyle(
+                                                    fontFamily: 'a',
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              )),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.edit,
+                                              color: Color.fromARGB(
+                                                  255, 159, 159, 153),
+                                            ),
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      backgroundColor:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              247,
+                                                              246,
+                                                              239),
+                                                      title: const Text(
+                                                        'Change completion time or Name ',
+                                                        style: TextStyle(
+                                                            fontFamily: 'a',
+                                                            color: Colors.black,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w900),
+                                                      ),
+                                                      content: Column(
+                                                        children: [
+                                                          const Text(
+                                                            'Name',
+                                                            style: TextStyle(
+                                                                fontFamily: 'a',
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                          TextFormField(
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                TaskInfo
+                                                                    .displayedTasks[
+                                                                        index]
+                                                                    .taskName = value;
+                                                              });
+                                                            },
+                                                            controller:
+                                                                textEditingControllerForUpdating,
+                                                            decoration: InputDecoration(
+                                                                filled: true,
+                                                                fillColor:
+                                                                    Colors
+                                                                        .white,
+                                                                border:
+                                                                    textFieldKa,
+                                                                focusedBorder:
+                                                                    textFieldKa,
+                                                                enabledBorder:
+                                                                    textFieldKa),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    );
+                                                  });
+                                            },
+                                          )
+                                        ],
+                                      ),
                                       const SizedBox(
                                         height: 14,
                                         width: 20,
@@ -319,7 +400,13 @@ class _ToDoListState extends State<ToDoList> {
                         ),
                         IconButton(
                             onPressed: () {},
-                            icon: const Icon(Icons.arrow_drop_down))
+                            icon: const Icon(Icons.arrow_drop_down)),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.refresh),
+                        )
                       ],
                     ),
                     InkWell(
