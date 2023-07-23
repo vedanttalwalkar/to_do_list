@@ -8,17 +8,22 @@ class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
 
   @override
-  State<ToDoList> createState() => _ToDoListState();
+  State<ToDoList> createState() => ToDoListState();
 }
 
-class _ToDoListState extends State<ToDoList> {
+class ToDoListState extends State<ToDoList> {
   String taskName = '';
+  List<Task> tasksToBeDisplayed = TaskInfo.displayedTasks;
 
   @override
   void initState() {
     super.initState();
     textEditingControllerForUpdating.addListener(() => setState(() {}));
     textEditingController.addListener(() => setState(() {}));
+  }
+
+  void _update(List<Task> tasks) {
+    setState(() => tasksToBeDisplayed = tasks);
   }
 
   bool edit = false;
@@ -205,7 +210,7 @@ class _ToDoListState extends State<ToDoList> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: ((context) => const AddTask()),
+                                      builder: ((context) => AddTask(_update)),
                                     ),
                                   );
                                 },
@@ -429,12 +434,6 @@ class _ToDoListState extends State<ToDoList> {
                         IconButton(
                             onPressed: () {},
                             icon: const Icon(Icons.arrow_drop_down)),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          icon: const Icon(Icons.refresh),
-                        )
                       ],
                     ),
                     InkWell(

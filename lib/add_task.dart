@@ -1,14 +1,19 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:to_do_list/task_info.dart';
 
 class AddTask extends StatefulWidget {
-  const AddTask({super.key});
-
+  const AddTask(this.update, {super.key});
+  final ValueChanged<List<Task>> update;
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<AddTask> createState() => AddTaskState(update: update);
 }
 
-class _AddTaskState extends State<AddTask> {
+class AddTaskState extends State<AddTask> {
+  final ValueChanged<List<Task>> update;
+  AddTaskState({required this.update});
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +34,7 @@ class _AddTaskState extends State<AddTask> {
     ),
   );
   String taskName = '';
-  int hours = 8;
+  int hours = 0;
   int year = 0;
   int month = 0;
   int mins = 0;
@@ -422,6 +427,7 @@ class _AddTaskState extends State<AddTask> {
                       mins < 60) {
                     TaskInfo(Task(
                         taskName, DateTime(year, month, day, hours, mins)));
+                    update(TaskInfo.displayedTasks);
                     Navigator.pop(context);
                     TaskInfo.changed = true;
                   }
